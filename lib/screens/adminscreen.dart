@@ -37,9 +37,15 @@ class _AdminState extends State<Admin> {
   final _popupkey = GlobalKey<FormState>();
   bool islossnull = false;
   bool isgainnull=false;
-  void change() {
+  void change(int value) {
     setState(() {
-      islossnull = !islossnull;
+      if(value==1){
+      islossnull=false;
+      isgainnull = !isgainnull;}
+      else {
+        isgainnull=false;
+       islossnull=!islossnull;
+      }
     });
   }
 
@@ -72,7 +78,7 @@ class _AdminState extends State<Admin> {
                     child: const Text('Add Food to weight gain',
                         style: TextStyle(color: Colors.white, fontSize: 20)),
                     onPressed: () {
-                      change();
+                      change(1);
       
                       // showDialog(
                       //     context: context,
@@ -186,7 +192,7 @@ class _AdminState extends State<Admin> {
               ],
             ),
       
-            Card( child: islossnull == false
+            Card( child: isgainnull == false
                     ? null:
                Container(decoration: BoxDecoration(border: Border.all(width: 1),
                borderRadius: BorderRadius.circular(10)),
@@ -271,7 +277,7 @@ class _AdminState extends State<Admin> {
                                               foodcontroller.clear();
                                               caloriecontroller.clear();
                                               potioncontroller.clear();
-                                              change();
+                                              change(1);
                                             },
                                             child: const Text('Cancel')),
                                         ElevatedButton(
@@ -286,7 +292,7 @@ class _AdminState extends State<Admin> {
                                                 foodcontroller.clear();
                                                 caloriecontroller.clear();
                                                 potioncontroller.clear();
-                                             change();
+                                             change(1);
                                               }
                                             },
                                             child: const Text('Add')),
@@ -309,7 +315,7 @@ class _AdminState extends State<Admin> {
                     child: const Text('Add Food to weight loss',
                         style: TextStyle(color: Colors.white, fontSize: 20)),
                     onPressed: () {
-                      change();
+                      change(2);
                       // showDialog(
                       //     context: context,
                       //     builder: (ctx) {
@@ -507,7 +513,7 @@ class _AdminState extends State<Admin> {
                                               foodcontroller.clear();
                                               caloriecontroller.clear();
                                               potioncontroller.clear();
-                                              change();
+                                              change(2);
                                             },
                                             child: const Text('Cancel')),
                                         ElevatedButton(
@@ -522,7 +528,7 @@ class _AdminState extends State<Admin> {
                                                 foodcontroller.clear();
                                                 caloriecontroller.clear();
                                                 potioncontroller.clear();
-                                             change();
+                                             change(2);
                                               }
                                             },
                                             child: const Text('Add')),
