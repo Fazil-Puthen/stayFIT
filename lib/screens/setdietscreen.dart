@@ -22,7 +22,9 @@ class SetDiet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Scaffold(floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      appBar: AppBar(title: const Text('Set Target'),
+      centerTitle: true,),
         body: SafeArea(
       child: Container(
           height: double.infinity,
@@ -33,23 +35,26 @@ class SetDiet extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
-                  width: double.infinity,
+                  width: MediaQuery.of(context).size.width*0.6,
                   height: 50,
                   // color: Colors.amber.shade100,
-                  decoration: BoxDecoration(boxShadow: [
+                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),
+                    boxShadow: [
                     BoxShadow(
                         color: Colors.amber.shade400,
-                        spreadRadius: 5,
-                        blurRadius: 2)
+                        spreadRadius: 2,
+                        blurRadius: 1)
                   ]),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
                         'BMR: ${bodymass.toString()}',
                         style: const TextStyle(
                             fontSize: 30, fontWeight: FontWeight.w500),
-                      )
+                      ),
+                     const  Text('Basal Metabloic Rate')
+
                     ],
                   ),
                 ),
@@ -107,10 +112,10 @@ class SetDiet extends StatelessWidget {
                 Container(
                   width: 100,
                   height: 80,
-                  child: ElevatedButton(
-                      style: const ButtonStyle(
-                          backgroundColor:
-                              MaterialStatePropertyAll(Colors.amber)),
+                  child: FloatingActionButton(
+                      // style: const ButtonStyle(
+                      //     backgroundColor:
+                      //         MaterialStatePropertyAll(Colors.amber)),
                       onPressed: () {
                         final tarweight = targetweight.text;
                         double tweight = double.parse(tarweight);

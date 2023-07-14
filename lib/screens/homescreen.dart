@@ -62,7 +62,7 @@ class HomeScreen extends StatelessWidget {
               children: [
                 Text(
                   'Let Us Know\n About You',
-                  style: TextStyle(fontSize: 30),
+                  style: TextStyle(fontSize: 25,fontWeight: FontWeight.w300),
                 ),
               ],
             ),
@@ -202,13 +202,13 @@ class HomeScreen extends StatelessWidget {
               ],
             ),
             space,
-            addTile(
-                ' get active for 150 minutes a week – you can break this up into shorter sessions',
-                Icons.run_circle),
-            space,
-            addTile(
-                ' get active for 150 minutes a week – you can break this up into shorter sessions',
-                Icons.run_circle)
+            // addTile(
+            //     ' get active for 150 minutes a week – you can break this up into shorter sessions',
+            //     Icons.run_circle),
+            // space,
+            // addTile(
+            //     ' get active for 150 minutes a week – you can break this up into shorter sessions',
+            //     Icons.run_circle)
           ],
         ),
       ),

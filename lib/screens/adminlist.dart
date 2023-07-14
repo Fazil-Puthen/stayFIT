@@ -68,9 +68,9 @@ class AdminList extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          // const CircleAvatar(
-                          //   backgroundImage: AssetImage(''),
-                          // ),
+                          const CircleAvatar(
+                            backgroundImage: AssetImage(''),
+                          ),
                           Column(
                             children: [
                               Text(data.name),
