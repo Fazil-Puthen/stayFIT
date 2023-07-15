@@ -36,9 +36,10 @@ class SetDiet extends StatelessWidget {
               // mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                space,
                 Container(
                   width: MediaQuery.of(context).size.width*0.6,
-                  height: 50,
+                  height: MediaQuery.of(context).size.height*0.1,
                   // color: Colors.amber.shade100,
                   // decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),
                   //   boxShadow: [
@@ -92,8 +93,9 @@ class SetDiet extends StatelessWidget {
                         }
                         int data=int.parse(value);
                         if(data>10||data<1){
-                          return 'The target weight should be between 1 to 10';
+                          return 'target should be between 1 to 10';
                         }
+                        return null;
                       },
                       decoration: const InputDecoration(
                        

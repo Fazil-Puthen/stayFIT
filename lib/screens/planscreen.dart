@@ -37,8 +37,8 @@ class _PlanScreenState extends State<PlanScreen> {
     start();
     super.dispose();
   }
-
-  final homeweight = HomeScreen();
+  
+ 
   bool isnull = true;
   bool weekupdate = false;
   int week = 0;
@@ -49,13 +49,12 @@ class _PlanScreenState extends State<PlanScreen> {
   //timer
   int lenght = 0;
   Future<void> start() async {
-    Timer.periodic(const Duration(seconds: 10), (timer) {
+    Timer.periodic(const Duration(seconds: 2), (timer) {
       int weekcounter = lenght + 1;
       setState(() {
         // lunchnotifier.value;
         if (widget.days > 0) {
           widget.days--;
-          print('this is the weekcounter $weekcounter');
           sumcalorie(lenght);
           timeclear(context);
           if (weekcounter % 7 == 0) {
@@ -80,6 +79,8 @@ class _PlanScreenState extends State<PlanScreen> {
 
   @override
   Widget build(BuildContext context) {
+     final screenSize = MediaQuery.of(context).size;
+  final textScaleFactor = screenSize.width > 600 ? 1.5 : 1.0;
     final weight = double.parse(widget.weight);
     getmeallist();
     return Scaffold(
@@ -156,7 +157,7 @@ class _PlanScreenState extends State<PlanScreen> {
                           width: MediaQuery.of(context).size.width *0.8,
                           height: MediaQuery.of(context).size.width *0.1,
                           decoration: BoxDecoration(
-                              border: Border.all(width: 1, color: Colors.amber),
+                              border: Border.all(width: .3,),
                               borderRadius: BorderRadius.circular(5)),
                           child: Center(
                             child: Text(
@@ -221,11 +222,20 @@ class _PlanScreenState extends State<PlanScreen> {
                                 Padding(
                                   padding:
                                       const EdgeInsets.symmetric(vertical: 15),
-                                  child: Text(
-                                    'Your current weight after $week week is $weekupdateweight',
-                                    style: const TextStyle(
-                                      fontSize: 20,
-                                    ),
+                                  child: Column(
+                                    children: [ Text(
+                                        'Your were initially ${widget.weight} Kg',
+                                        style:  TextStyle(
+                                          fontSize: 15*textScaleFactor,
+                                        ),
+                                      ),
+                                      Text(
+                                        'Your current weight after $week week is $weekupdateweight Kg',
+                                        style:  TextStyle(
+                                          fontSize: 15*textScaleFactor,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
                                 IconButton(

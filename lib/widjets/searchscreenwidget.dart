@@ -8,10 +8,10 @@ import '../functions/db_mealfunctions.dart';
 import '../models/foodmodel.dart';
 
 Widget searchScreen(FoodModel data, int index, String mealtime) {
-  ValueNotifier<int> count = ValueNotifier(0);
-  ValueNotifier<double> caloriechange = ValueNotifier(data.calorie);
-  final base64image=data.imagepath;
-  final imagedecoded=base64Decode(base64image!);
+  // ValueNotifier<int> count = ValueNotifier(0);
+  // ValueNotifier<double> caloriechange = ValueNotifier(data.calorie);
+  final base64image = data.imagepath;
+  final imagedecoded = base64Decode(base64image!);
   return Card(
     color: Colors.white,
     child: Padding(
@@ -21,9 +21,11 @@ Widget searchScreen(FoodModel data, int index, String mealtime) {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-             CircleAvatar(
+            CircleAvatar(
               radius: 30,
-              backgroundImage: MemoryImage(imagedecoded),
+              backgroundImage: imagedecoded != null
+                  ? MemoryImage(imagedecoded) as ImageProvider
+                  : const AssetImage('assets/logo.png'),
             ),
             Column(
               children: [

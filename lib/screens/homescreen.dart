@@ -108,7 +108,7 @@ class HomeScreen extends StatelessWidget {
               key: _textkey,
                child: Column(
                  children: [
-                   textfield('name', namecontroller, TextInputType.text,'name',(value){
+                   textfield('name', namecontroller, TextInputType.text,'',(value){
                     if(value!.isEmpty){
                       return 'plaese enter a Name';
                     }
@@ -116,7 +116,7 @@ class HomeScreen extends StatelessWidget {
                              }),
                   
             space,
-            textfield('age', agecontroller, TextInputType.number,'years',(value){
+            textfield('age', agecontroller, TextInputType.number,'',(value){
               if(value!.isEmpty){
                 return 'Mandatory field';
               }

@@ -9,6 +9,8 @@ const box = SizedBox(
 
 Widget cardtile(String meal, double cal, BuildContext context, int selectedgoal,
     String quote) {
+  final screenSize = MediaQuery.of(context).size;
+  final textScaleFactor = screenSize.width > 600 ? 1.5 : 1.0;
   String calorie = cal.toStringAsFixed(0);
   return GestureDetector(
     onTap: () {
@@ -101,7 +103,7 @@ Widget cardtile(String meal, double cal, BuildContext context, int selectedgoal,
                     Text(
                       quote,
                       textAlign: TextAlign.justify,
-                      style: const TextStyle(color: Colors.black),
+                      style: TextStyle(color: Colors.black,fontSize: 11.5*textScaleFactor),
                       softWrap: true,
                     )
                   ],

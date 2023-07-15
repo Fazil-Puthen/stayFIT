@@ -41,9 +41,11 @@ class _AdminState extends State<Admin> {
   void change(int value) {
     setState(() {
       if (value == 1) {
+        imagefile = null; // Clear the background image
         islossnull = false;
         isgainnull = !isgainnull;
       } else {
+        imagefile = null;
         isgainnull = false;
         islossnull = !islossnull;
       }
@@ -52,6 +54,8 @@ class _AdminState extends State<Admin> {
 
   @override
   Widget build(BuildContext context) {
+  final screenSize = MediaQuery.of(context).size;
+  final textScaleFactor = screenSize.width > 600 ? 1.5 : 1.0;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Admin'),
@@ -93,7 +97,7 @@ class _AdminState extends State<Admin> {
                           border: Border.all(width: 1),
                           borderRadius: BorderRadius.circular(10)),
                       width: MediaQuery.of(context).size.width * 0.8,
-                      height: MediaQuery.of(context).size.height * 0.7,
+                      height: MediaQuery.of(context).size.height * 0.6,
                       child: Padding(
                         padding: const EdgeInsets.all(20.0),
                         child: Column(
@@ -114,12 +118,14 @@ class _AdminState extends State<Admin> {
                                           child: CircleAvatar(
                                             backgroundImage: imagefile == null
                                                 ? const AssetImage(
-                                                    'assets/logo.png')
+                                                    'assets/camera add.jpg')
                                                 : FileImage(imagefile!)
                                                     as ImageProvider,
                                             radius: 70,
-                                            child: const Center(
-                                              child: Text('Add image'),
+                                            child: Center(
+                                              child: imagefile == null
+                                                  ? const Text('Add image')
+                                                  : null,
                                             ),
                                           ),
                                         ),
@@ -185,14 +191,15 @@ class _AdminState extends State<Admin> {
                                       if (imagefile == null) {
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(const SnackBar(
-                                          content: Text(
-                                              'image is required'),
+                                          content:
+                                              Text(' All fields are required'),
                                           backgroundColor: Colors.red,
                                           behavior: SnackBarBehavior.floating,
                                           // padding: EdgeInsets.all(20),
                                           margin: EdgeInsets.all(30),
                                         ));
-                                      }else if (_popupkey.currentState!.validate()) {
+                                      } else if (_popupkey.currentState!
+                                          .validate()) {
                                         onAddButton(selctedgoal: 1);
                                         foodcontroller.clear();
                                         caloriecontroller.clear();
@@ -234,7 +241,7 @@ class _AdminState extends State<Admin> {
                           border: Border.all(width: 1),
                           borderRadius: BorderRadius.circular(10)),
                       width: MediaQuery.of(context).size.width * 0.8,
-                      height: MediaQuery.of(context).size.height * 0.7,
+                      height: MediaQuery.of(context).size.height * 0.6,
                       child: Padding(
                         padding: const EdgeInsets.all(20.0),
                         child: Column(
@@ -254,7 +261,7 @@ class _AdminState extends State<Admin> {
                                         child: CircleAvatar(
                                           backgroundImage: imagefile == null
                                               ? const AssetImage(
-                                                  'assets/logo.png')
+                                                  'assets/camera add.jpg')
                                               : FileImage(imagefile!)
                                                   as ImageProvider,
                                           backgroundColor: Colors.transparent,
@@ -322,12 +329,25 @@ class _AdminState extends State<Admin> {
                                             MaterialStatePropertyAll(
                                                 Colors.amber)),
                                     onPressed: () {
-                                      if (_popupkey.currentState!.validate()) {
-                                        onAddButton(selctedgoal: 2);
-                                        foodcontroller.clear();
-                                        caloriecontroller.clear();
-                                        potioncontroller.clear();
-                                        change(2);
+                                      if (imagefile == null) {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(const SnackBar(
+                                          content:
+                                              Text(' All fields are required'),
+                                          backgroundColor: Colors.red,
+                                          behavior: SnackBarBehavior.floating,
+                                          // padding: EdgeInsets.all(20),
+                                          margin: EdgeInsets.all(30),
+                                        ));
+                                      } else {
+                                        if (_popupkey.currentState!
+                                            .validate()) {
+                                          onAddButton(selctedgoal: 2);
+                                          foodcontroller.clear();
+                                          caloriecontroller.clear();
+                                          potioncontroller.clear();
+                                          change(2);
+                                        }
                                       }
                                     },
                                     child: const Text('Add')),
@@ -352,11 +372,11 @@ class _AdminState extends State<Admin> {
                     color: Colors.amber,
                   ),
                   child: TextButton(
-                    child: const Text(
+                    child:  Text(
                       'Gain food list',
                       style: TextStyle(
                           color: Colors.black,
-                          fontSize: 18,
+                          fontSize: 15*textScaleFactor,
                           fontWeight: FontWeight.w700),
                     ),
                     onPressed: () {
@@ -376,11 +396,11 @@ class _AdminState extends State<Admin> {
                     color: Colors.amber,
                   ),
                   child: TextButton(
-                    child: const Text(
+                    child:  Text(
                       'Loss food list',
                       style: TextStyle(
                           color: Colors.black,
-                          fontSize: 18,
+                          fontSize: 15*textScaleFactor,
                           fontWeight: FontWeight.w700),
                     ),
                     onPressed: () {
