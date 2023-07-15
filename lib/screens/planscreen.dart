@@ -49,7 +49,7 @@ class _PlanScreenState extends State<PlanScreen> {
   //timer
   int lenght = 0;
   Future<void> start() async {
-    Timer.periodic(const Duration(seconds: 4), (timer) {
+    Timer.periodic(const Duration(seconds: 10), (timer) {
       int weekcounter = lenght + 1;
       setState(() {
         // lunchnotifier.value;

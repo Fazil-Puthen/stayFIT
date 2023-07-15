@@ -34,7 +34,7 @@ Future<void> foodadd(FoodModel data, int selectedgoal) async {
             name: value!.name,
             calorie: value.calorie,
             id: id,
-            portion: value.portion));
+            portion: value.portion,imagepath: value.imagepath));
     data.id = id;
     lossfoodNotifier.value.add(data);
     lossfoodNotifier.notifyListeners();

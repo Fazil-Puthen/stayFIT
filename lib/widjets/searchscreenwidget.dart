@@ -1,5 +1,7 @@
 //search screen function
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 
 import '../functions/db_mealfunctions.dart';
@@ -8,6 +10,8 @@ import '../models/foodmodel.dart';
 Widget searchScreen(FoodModel data, int index, String mealtime) {
   ValueNotifier<int> count = ValueNotifier(0);
   ValueNotifier<double> caloriechange = ValueNotifier(data.calorie);
+  final base64image=data.imagepath;
+  final imagedecoded=base64Decode(base64image!);
   return Card(
     color: Colors.white,
     child: Padding(
@@ -17,10 +21,10 @@ Widget searchScreen(FoodModel data, int index, String mealtime) {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            // const CircleAvatar(
-            //   radius: 30,
-            //   backgroundImage: AssetImage('assets/logo.png'),
-            // ),
+             CircleAvatar(
+              radius: 30,
+              backgroundImage: MemoryImage(imagedecoded),
+            ),
             Column(
               children: [
                 Text(

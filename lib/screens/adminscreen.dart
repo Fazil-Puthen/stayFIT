@@ -73,7 +73,7 @@ class _AdminState extends State<Admin> {
                   width: 300,
                   height: 50,
                   decoration: BoxDecoration(
-                      color: Color.fromARGB(255, 1, 78, 142),
+                      color: const Color.fromARGB(255, 1, 78, 142),
                       borderRadius: BorderRadius.circular(10)),
                   child: TextButton(
                     child: const Text('Add Food to weight gain',
@@ -110,16 +110,17 @@ class _AdminState extends State<Admin> {
                                         onTap: () {
                                           imagepick();
                                         },
-                                        child: CircleAvatar(
-                                          backgroundImage: imagefile == null
-                                              ? const AssetImage(
-                                                  'assets/logo.png')
-                                              : FileImage(imagefile!)
-                                                  as ImageProvider,
-                                          backgroundColor: Colors.transparent,
-                                          radius: 80,
-                                          child: const Center(
-                                            child: Text('Add image'),
+                                        child: ClipOval(
+                                          child: CircleAvatar(
+                                            backgroundImage: imagefile == null
+                                                ? const AssetImage(
+                                                    'assets/logo.png')
+                                                : FileImage(imagefile!)
+                                                    as ImageProvider,
+                                            radius: 70,
+                                            child: const Center(
+                                              child: Text('Add image'),
+                                            ),
                                           ),
                                         ),
                                       ),
@@ -181,7 +182,17 @@ class _AdminState extends State<Admin> {
                                             MaterialStatePropertyAll(
                                                 Colors.amber)),
                                     onPressed: () {
-                                      if (_popupkey.currentState!.validate()) {
+                                      if (imagefile == null) {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(const SnackBar(
+                                          content: Text(
+                                              'image is required'),
+                                          backgroundColor: Colors.red,
+                                          behavior: SnackBarBehavior.floating,
+                                          // padding: EdgeInsets.all(20),
+                                          margin: EdgeInsets.all(30),
+                                        ));
+                                      }else if (_popupkey.currentState!.validate()) {
                                         onAddButton(selctedgoal: 1);
                                         foodcontroller.clear();
                                         caloriecontroller.clear();
@@ -312,7 +323,7 @@ class _AdminState extends State<Admin> {
                                                 Colors.amber)),
                                     onPressed: () {
                                       if (_popupkey.currentState!.validate()) {
-                                        onAddButton(selctedgoal: 1);
+                                        onAddButton(selctedgoal: 2);
                                         foodcontroller.clear();
                                         caloriecontroller.clear();
                                         potioncontroller.clear();
@@ -402,10 +413,7 @@ class _AdminState extends State<Admin> {
 
     double cal = double.parse(calorie);
     final addfood = FoodModel(
-      name: name,
-      calorie: cal,
-      portion: portion,
-      imagepath: base64Image);
+        name: name, calorie: cal, portion: portion, imagepath: base64Image);
     foodadd(addfood, selctedgoal);
   }
 }

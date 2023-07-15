@@ -25,18 +25,55 @@ class HomeScreen extends StatelessWidget {
   final _formkey = GlobalKey<FormState>();
   final _textkey=GlobalKey<FormState>();
 
+  // Widget textfield(
+  //     String hint, TextEditingController control, TextInputType value,
+  //     String? Function(String?) validator) {
+  //   return TextFormField(
+      
+  //     textAlign: TextAlign.center,
+  //     style: TextStyle(fontSize: 20),
+  //     decoration: InputDecoration(
+  //     //  suffixText: 'KG',
+  //     //  suffixStyle: ,
+  //     // suffix: Center(child: Text('kg'),),
+       
+  //         hintText: hint,
+  //         alignLabelWithHint: true,
+  //         hintStyle: TextStyle(color: Colors.black.withOpacity(.3))),
+  //     controller: control,
+  //     keyboardType: value,
+  //     validator: validator,
+  //   );
+  // }
+
   Widget textfield(
-      String hint, TextEditingController control, TextInputType value,
-      String? Function(String?) validator) {
-    return TextFormField(
-      decoration: InputDecoration(
-          hintText: hint,
-          hintStyle: TextStyle(color: Colors.black.withOpacity(.3))),
-      controller: control,
-      keyboardType: value,
-      validator: validator,
-    );
-  }
+  String hint,
+  TextEditingController control,
+  TextInputType value,
+  String suffix,
+  String? Function(String?) validator,
+  
+) {
+  return TextFormField(
+    textAlign: TextAlign.center,
+    style:const  TextStyle(fontSize: 20),
+    decoration: InputDecoration(
+      alignLabelWithHint: true, // Aligns hintText to the left
+      hintText: hint,
+      hintStyle: TextStyle(color: Colors.black.withOpacity(.3)),
+      suffix: Center(
+        widthFactor: 1.0,
+        child: Text(suffix,
+          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        ),
+      ),
+    ),
+    controller: control,
+    keyboardType: value,
+    validator: validator,
+  );
+}
+
 
   @override
   Widget build(BuildContext context) {
@@ -71,24 +108,31 @@ class HomeScreen extends StatelessWidget {
               key: _textkey,
                child: Column(
                  children: [
-                   textfield('name', namecontroller, TextInputType.text,(value){
+                   textfield('name', namecontroller, TextInputType.text,'name',(value){
                     if(value!.isEmpty){
                       return 'plaese enter a Name';
                     }
                     return null;
                              }),
+                  
             space,
-            textfield('age', agecontroller, TextInputType.number,(value){
-              int data=int.parse(value!);
-              if(data>65 || data<18){
+            textfield('age', agecontroller, TextInputType.number,'years',(value){
+              if(value!.isEmpty){
+                return 'Mandatory field';
+              }
+              int data=int.parse(value);
+              if( data>65 || data<18){
                  return 'The age should be between 18 and 65';
               }
               return null;
             }),
             space,
             textfield(
-                'weight in kilograms', weightcontroller, TextInputType.number,(value){
-                  int data=int.parse(value!);
+                'weight in kilograms', weightcontroller, TextInputType.number,'Kg',(value){
+                     if(value!.isEmpty){
+                return 'Mandatory field';
+              }
+                  int data=int.parse(value);
                   if(data>200 || data<30){
                     return 'Your weight is not eligible to register';
                   }
@@ -96,8 +140,11 @@ class HomeScreen extends StatelessWidget {
                 }),
             space,
             textfield('height in centimetres', heightcontroller,
-                TextInputType.number,(value){
-                  int data=int.parse(value!);
+                TextInputType.number,'Cm',(value){
+                     if(value!.isEmpty){
+                return 'Mandatory field';
+              }
+                  int data=int.parse(value);
                   if(data>200 || data<90){
                     return 'Your height is not eligible to register';
                   }
@@ -110,27 +157,27 @@ class HomeScreen extends StatelessWidget {
                 onPressed: () {
                   if(_textkey.currentState!.validate()){
 
-                  final username = namecontroller.text;
+                  // final username = namecontroller.text;
                   final age = agecontroller.text;
                   final height = heightcontroller.text;
                   final weight = weightcontroller.text;
 
-                  if (username.isNotEmpty &&
-                      age.isNotEmpty &&
-                      height.isNotEmpty &&
-                      weight.isNotEmpty) {
+                  // if (username.isNotEmpty &&
+                  //     age.isNotEmpty &&
+                  //     height.isNotEmpty &&
+                  //     weight.isNotEmpty) {
                     bottomsheet(context, age, height, weight);
                     // Navigator.of(context).push(MaterialPageRoute(builder:
                     // (ctx)=>GoalScreen()));
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      content: Text('All the fields are required'),
-                      backgroundColor: Colors.red,
-                      behavior: SnackBarBehavior.floating,
-                      // padding: EdgeInsets.all(20),
-                      margin: EdgeInsets.all(30),
-                    ));
-                  }
+                  // } else {
+                  //   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                  //     content: Text('All the fields are required'),
+                  //     backgroundColor: Colors.red,
+                  //     behavior: SnackBarBehavior.floating,
+                  //     // padding: EdgeInsets.all(20),
+                  //     margin: EdgeInsets.all(30),
+                  //   ));
+                  // }
                 }},
                 child: const Row(
                   mainAxisAlignment: MainAxisAlignment.center,

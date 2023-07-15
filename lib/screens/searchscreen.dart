@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:health_app/widjets/widjets.dart';
 // import 'package:health_app/screens/planscreen.dart';
@@ -107,7 +109,6 @@ class _SearchScreenState extends State<SearchScreen> {
                         return ListView.separated(
                             itemBuilder: (ctx, index) {
                               final data = filteredlist[index];
-                              print(data.name);
                               return searchScreen(data, index, widget.mealtime);
                               //     ListTile(
                               //   title: Text(

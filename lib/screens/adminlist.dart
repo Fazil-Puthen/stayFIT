@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
@@ -37,15 +39,15 @@ class AdminList extends StatelessWidget {
       await foodDB.put(id, foodobj);
       gainlist[index] = foodobj;
       gainfoodNotifier.notifyListeners();
-      print(id);
     } else {
       Box<FoodModel> foodDB2 = await Hive.openBox<FoodModel>('lossfood');
       await foodDB2.put(id, foodobj);
       losslist[index] = foodobj;
       lossfoodNotifier.notifyListeners();
-      print(id);
     }
   }
+
+  final editkey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -62,14 +64,19 @@ class AdminList extends StatelessWidget {
               return ListView.separated(
                   itemBuilder: (ctx, index) {
                     final data = foodmodel[index];
-
+                    // final base64image=data.imagepath;
+                    // final imagedecoded=base64Decode(base64image!);
                     //List tile
                     return Card(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          const CircleAvatar(
-                            backgroundImage: AssetImage(''),
+                          CircleAvatar(
+                            backgroundImage: data.imagepath != null
+                                ? MemoryImage(base64Decode(data.imagepath!))
+                                    as ImageProvider
+                                : const AssetImage(
+                                    'assets/logo.png'),
                           ),
                           Column(
                             children: [
@@ -94,20 +101,28 @@ class AdminList extends StatelessWidget {
                                       return AlertDialog(
                                         title: const Text('EDIT'),
                                         actions: [
-                                          TextField(
-                                            decoration: const InputDecoration(
-                                                hintText: 'food'),
-                                            controller: foodcontroller,
-                                          ),
-                                          TextField(
-                                            decoration: const InputDecoration(
-                                                hintText: 'calorie'),
-                                            controller: caloriecontroller,
-                                          ),
-                                          TextField(
-                                            decoration: const InputDecoration(
-                                                hintText: 'portion'),
-                                            controller: portioncontroller,
+                                          Form(
+                                            key: editkey,
+                                            child: Column(children: [
+                                              TextFormField(
+                                                decoration:
+                                                    const InputDecoration(
+                                                        hintText: 'food'),
+                                                controller: foodcontroller,
+                                              ),
+                                              TextFormField(
+                                                decoration:
+                                                    const InputDecoration(
+                                                        hintText: 'calorie'),
+                                                controller: caloriecontroller,
+                                              ),
+                                              TextFormField(
+                                                decoration:
+                                                    const InputDecoration(
+                                                        hintText: 'portion'),
+                                                controller: portioncontroller,
+                                              ),
+                                            ]),
                                           ),
                                           Row(
                                             mainAxisAlignment:
@@ -125,14 +140,20 @@ class AdminList extends StatelessWidget {
                                       );
                                     });
                               },
-                              icon: const Icon(Icons.edit,color: Colors.blue,)),
+                              icon: const Icon(
+                                Icons.edit,
+                                color: Colors.blue,
+                              )),
                           IconButton(
                               onPressed: () {
                                 if (data.id != null) {
                                   deletefood(data.id!, selectedgoal);
                                 }
                               },
-                              icon: const Icon(Icons.delete,color: Colors.red,))
+                              icon: const Icon(
+                                Icons.delete,
+                                color: Colors.red,
+                              ))
                         ],
                       ),
                     );

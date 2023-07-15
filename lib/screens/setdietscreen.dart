@@ -13,6 +13,7 @@ class SetDiet extends StatelessWidget {
   final int selectedgoal;
 
   final targetweight = TextEditingController();
+  final dietkey=GlobalKey<FormState>();
 
   SetDiet(
       {super.key,
@@ -24,6 +25,7 @@ class SetDiet extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       appBar: AppBar(title: const Text('Set Target'),
+      backgroundColor: Colors.amber,
       centerTitle: true,),
         body: SafeArea(
       child: Container(
@@ -38,13 +40,13 @@ class SetDiet extends StatelessWidget {
                   width: MediaQuery.of(context).size.width*0.6,
                   height: 50,
                   // color: Colors.amber.shade100,
-                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),
-                    boxShadow: [
-                    BoxShadow(
-                        color: Colors.amber.shade400,
-                        spreadRadius: 2,
-                        blurRadius: 1)
-                  ]),
+                  // decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),
+                  //   boxShadow: [
+                  //   BoxShadow(
+                  //       color: Colors.amber.shade400,
+                  //       spreadRadius: 2,
+                  //       blurRadius: 1)
+                  // ]),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
@@ -77,22 +79,36 @@ class SetDiet extends StatelessWidget {
                 ),
                 space,
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: TextFormField(
-                    controller: targetweight,
-                    keyboardType: TextInputType.number,
-                    decoration: const InputDecoration(
-                        border: OutlineInputBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
-                        hintText: 'weight in kilograms'),
+                  padding: const EdgeInsets.symmetric(horizontal: 80),
+                  child: Form(key: dietkey,
+                    child: TextFormField(
+                      style:const TextStyle(fontSize: 20,fontWeight: FontWeight.w500),
+                      textAlign: TextAlign.center,
+                      controller: targetweight,
+                      keyboardType: TextInputType.number,
+                      validator: (value) {
+                        if(value!.isEmpty){
+                          return 'Please enter a target weight';
+                        }
+                        int data=int.parse(value);
+                        if(data>10||data<1){
+                          return 'The target weight should be between 1 to 10';
+                        }
+                      },
+                      decoration: const InputDecoration(
+                       
+                          border: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10))),
+                          hintText: 'weight in kilograms'),
+                    ),
                   ),
                 ),
                 space,
                 space,
                 const Expanded(
                   child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      padding: EdgeInsets.symmetric(horizontal: 60),
                       child: Text(
                         'This app recommends gaining/reducing 500grams per week,more than that needs a healthcare assistance',
                         style: TextStyle(),
@@ -117,6 +133,7 @@ class SetDiet extends StatelessWidget {
                       //     backgroundColor:
                       //         MaterialStatePropertyAll(Colors.amber)),
                       onPressed: () {
+                        if(dietkey.currentState!.validate()){
                         final tarweight = targetweight.text;
                         double tweight = double.parse(tarweight);
                         double days = (tweight / .5) * 7;
@@ -135,7 +152,7 @@ class SetDiet extends StatelessWidget {
                                     days: days.toInt(),
                                     selectedgoal: selectedgoal,
                                   )));
-                        });
+                        });}
                       },
                       child: const Text(
                         'Prepare plan',
