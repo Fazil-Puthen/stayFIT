@@ -32,20 +32,20 @@ class AdminList extends StatelessWidget {
     final calorie = caloriecontroller.text;
     final portion = portioncontroller.text;
     final cal = double.parse(calorie);
-    final gainimage=gainlist[index].imagepath;
-    final lossimage=losslist[index].imagepath;
+    // final gainimage=gainlist[index].imagepath;
+    // final lossimage=losslist[index].imagepath;
 
   
     if (selectedgoal == 1) {
       FoodModel foodobj =
-      FoodModel(name: food, calorie: cal, id: id, portion: portion,imagepath: gainimage);
+      FoodModel(name: food, calorie: cal, id: id, portion: portion,);
       Box<FoodModel> foodDB = await Hive.openBox<FoodModel>('gainfood');
       await foodDB.put(id, foodobj);
       gainlist[index] = foodobj;
       gainfoodNotifier.notifyListeners();
     } else {
         FoodModel foodobj =
-      FoodModel(name: food, calorie: cal, id: id, portion: portion,imagepath: lossimage);
+      FoodModel(name: food, calorie: cal, id: id, portion: portion,);
       Box<FoodModel> foodDB2 = await Hive.openBox<FoodModel>('lossfood');
       await foodDB2.put(id, foodobj);
       losslist[index] = foodobj;

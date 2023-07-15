@@ -67,8 +67,7 @@ Future<void> deletefood(int id, int selectedgoal) async {
 
 Future<void> clearHiveData() async {
   // Open the Hive box
-  final box1 = await Hive.openBox<FoodModel>('gainfood');
-  final box2 = await Hive.openBox<FoodModel>('lossfood');
+
   final box3 = await Hive.openBox<FoodModel>('Breakfast');
   final box4 = await Hive.openBox<FoodModel>('Lunch');
   final box5 = await Hive.openBox<FoodModel>('Dinner');
@@ -79,15 +78,13 @@ Future<void> clearHiveData() async {
   dinnernotifier.value.clear();
 
   // Clear all the data in the box
-  await box1.clear();
-  await box2.clear();
+
   await box3.clear();
   await box4.clear();
   await box5.clear();
 
   // Close the box
-  await box1.close();
-  await box2.close();
+  
   await box3.close();
   await box4.close();
   await box5.close();
