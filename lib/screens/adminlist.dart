@@ -70,7 +70,7 @@ class AdminList extends StatelessWidget {
               return ListView.separated(
                   itemBuilder: (ctx, index) {
                     final data = foodmodel[index];
-                    // final base64image=data.imagepath;
+                    // final base64image=data.imagepath
                     // final imagedecoded=base64Decode(base64image!);
                     //List tile
                     return Card(

@@ -97,7 +97,7 @@ class _AdminState extends State<Admin> {
                           border: Border.all(width: 1),
                           borderRadius: BorderRadius.circular(10)),
                       width: MediaQuery.of(context).size.width * 0.8,
-                      height: MediaQuery.of(context).size.height * 0.6,
+                      height: MediaQuery.of(context).size.height * 0.7,
                       child: Padding(
                         padding: const EdgeInsets.all(20.0),
                         child: Column(

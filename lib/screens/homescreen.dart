@@ -210,7 +210,10 @@ class HomeScreen extends StatelessWidget {
                                     key: _formkey,
                                     child: TextFormField(
                                       decoration: const InputDecoration(
-                                          hintText: 'password'),
+                                          hintText: 'hint : pass',hintStyle: TextStyle(
+                                            fontWeight: FontWeight.w700,fontSize: 20
+
+                                          )),
                                       obscureText: true,
                                       validator: (value) {
                                         if (value == null || value != '1') {

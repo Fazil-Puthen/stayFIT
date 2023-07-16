@@ -9,6 +9,8 @@ import 'package:health_app/widjets/widjets.dart';
 import 'package:health_app/functions/db_mealfunctions.dart';
 import 'package:health_app/functions/planscreenfunction.dart';
 
+import 'adminscreen.dart';
+
 class PlanScreen extends StatefulWidget {
   final totalcalorie;
   late int days;
@@ -45,6 +47,8 @@ class _PlanScreenState extends State<PlanScreen> {
   final weekupdatecontroller = TextEditingController();
   late double weekupdateweight;
   late double lastweekweight;
+  final _formkey=GlobalKey<FormState>();
+  final admincontrolller=TextEditingController();
 
   //timer
   int lenght = 0;
@@ -94,42 +98,97 @@ class _PlanScreenState extends State<PlanScreen> {
             padding: const EdgeInsets.all(5.0),
 
             //Plan exit button
-            child: IconButton(
-                onPressed: () {
-                  showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                            title: const Text('EXIT PLAN'),
-                            icon: const Icon(Icons.outbond),
-                            content: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                TextButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                    child: const Text(
-                                      'NO',
-                                      style: TextStyle(fontSize: 20),
-                                    )),
-                                TextButton(
-                                    onPressed: () {
-                                      clearHiveData();
-                                      Navigator.of(context).pushAndRemoveUntil(
-                                          MaterialPageRoute(
-                                              builder: (ctx) => HomeScreen()),
-                                          (route) => false);
-                                    },
-                                    child: const Text(
-                                      'YES',
-                                      style: TextStyle(fontSize: 20),
-                                    ))
-                              ],
-                            ));
-                      });
-                },
-                icon: const Icon(Icons.exit_to_app)),
+            child: Row(
+              children: [IconButton(onPressed: (){
+                 showDialog(
+                        context: context,
+                        builder: (BuildContext ctx) {
+                          return AlertDialog(
+                            title: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  const Text(
+                                    'Enter your password',
+                                    style: TextStyle(fontSize: 20),
+                                  ),
+                                  Form(
+                                    key: _formkey,
+                                    child: TextFormField(
+                                      decoration: const InputDecoration(
+                                          hintText: 'hint : pass',hintStyle: TextStyle(
+                                            fontWeight: FontWeight.w700,fontSize: 20
+
+                                          )),
+                                      obscureText: true,
+                                      validator: (value) {
+                                        if (value == null || value != '1') {
+                                          return 'please enter a valid password';
+                                        }
+                                        return null;
+                                      },
+                                      controller: admincontrolller,
+                                    ),
+                                  ),
+                                  TextButton(
+                                      onPressed: () {
+                                        // String name='fazil';
+                                        // final admin=admincontrolller.text;
+
+                                        if (_formkey.currentState!.validate()) {
+                                          Navigator.of(context).push(
+                                              MaterialPageRoute(
+                                                  builder: (ctx) => Admin()));
+                                          admincontrolller.clear();
+                                        }
+                                      },
+                                      child: const Text(
+                                        'Login',
+                                        style: TextStyle(fontSize: 18),
+                                      ))
+                                ]),
+                          );
+                        });
+              },
+               icon: const Icon(Icons.admin_panel_settings)),
+                IconButton(
+                    onPressed: () {
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                                title: const Text('EXIT PLAN'),
+                                icon: const Icon(Icons.outbond),
+                                content: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    TextButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: const Text(
+                                          'NO',
+                                          style: TextStyle(fontSize: 20),
+                                        )),
+                                    TextButton(
+                                        onPressed: () {
+                                          clearHiveData();
+                                          Navigator.of(context).pushAndRemoveUntil(
+                                              MaterialPageRoute(
+                                                  builder: (ctx) => HomeScreen()),
+                                              (route) => false);
+                                        },
+                                        child: const Text(
+                                          'YES',
+                                          style: TextStyle(fontSize: 20),
+                                        ))
+                                  ],
+                                ));
+                          });
+                    },
+                    icon: const Icon(Icons.exit_to_app)),
+              ],
+            ),
           )
         ],
 
