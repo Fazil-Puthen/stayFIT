@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
 import '../models/dailymodel.dart';
-import 'db_mealfunctions.dart';
+
 
 ValueNotifier<List<DailyModel>> dailynotifier = ValueNotifier([]);
 

@@ -53,7 +53,7 @@ class _PlanScreenState extends State<PlanScreen> {
   //timer
   int lenght = 0;
   Future<void> start() async {
-    Timer.periodic(const Duration(seconds: 2), (timer) {
+    Timer.periodic(const Duration(seconds: 10), (timer) {
       int weekcounter = lenght + 1;
       setState(() {
         // lunchnotifier.value;
@@ -99,7 +99,8 @@ class _PlanScreenState extends State<PlanScreen> {
 
             //Plan exit button
             child: Row(
-              children: [IconButton(onPressed: (){
+              children: [
+                IconButton (  onPressed: (){
                  showDialog(
                         context: context,
                         builder: (BuildContext ctx) {
@@ -260,7 +261,6 @@ class _PlanScreenState extends State<PlanScreen> {
                                           setState(() {
                                             weekupdateweight = double.parse(
                                                 weekupdatecontroller.text);
-                                                lastweekweight=weekupdateweight;
                                             week++;
                                             isnull = true;
                                             weekupdate = true;
@@ -416,6 +416,7 @@ class _PlanScreenState extends State<PlanScreen> {
                             itemBuilder: ((BuildContext context, index) {
                               return GestureDetector(
                                 onTap: () {
+                                 
                                   showDialog(
                                       context: context,
                                       builder: (BuildContext context) {

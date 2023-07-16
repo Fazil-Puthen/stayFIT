@@ -11,7 +11,7 @@ import 'db_mealfunctions.dart';
 ValueNotifier total = ValueNotifier(0);
 
 Future<void> timeclear(BuildContext context) async {
-   final dailydata = await Hive.openBox<DailyModel>('dailystatus');
+  //  final dailydata = await Hive.openBox<DailyModel>('dailystatus');
   final box = await Hive.openBox<FoodModel>('Breakfast');
   final box1 = await Hive.openBox<FoodModel>('Lunch');
   final box2 = await Hive.openBox<FoodModel>('Dinner');
@@ -19,8 +19,8 @@ Future<void> timeclear(BuildContext context) async {
   breakfastnotifier.value.clear();
   lunchnotifier.value.clear();
   dinnernotifier.value.clear();
-  await dailydata.clear();
-  await dailydata.close();
+  // await dailydata.clear();
+  // await dailydata.close();
   await box.clear();
   await box.close();
   await box1.clear();
