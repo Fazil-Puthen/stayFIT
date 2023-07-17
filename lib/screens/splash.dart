@@ -3,7 +3,6 @@ import 'package:health_app/functions/db_dailystatusfunction.dart';
 import 'package:health_app/main.dart';
 import 'package:health_app/screens/homescreen.dart';
 import 'package:health_app/screens/planscreen.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

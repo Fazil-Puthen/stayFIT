@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:health_app/screens/detailscreen.dart';
 import 'package:health_app/screens/searchscreen.dart';
-// import 'package:marquee/marquee.dart';
 
 const box = SizedBox(
   height: 20,
@@ -62,11 +61,6 @@ Widget cardtile(String meal, double cal, BuildContext context, int selectedgoal,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  // Text(
-                  //   '0 of $calorie cal',
-                  //   style: const TextStyle(fontSize: 20),
-                  // ),
-    
                   //Add button
                   TextButton(
                       onPressed: () {
@@ -92,13 +86,12 @@ Widget cardtile(String meal, double cal, BuildContext context, int selectedgoal,
             const SizedBox(
               height: 4,
             ),
-            Container(
+            SizedBox(
               width: MediaQuery.of(context).size.width *0.9,
               height: 50,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 5),
                 child: Wrap(
-                  // mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
                       quote,

@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:health_app/main.dart';
 import 'package:health_app/screens/planscreen.dart';
-import 'package:flutter/services.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class SetDiet extends StatelessWidget {
   // ignore: prefer_typing_uninitialized_variables
@@ -33,26 +30,16 @@ class SetDiet extends StatelessWidget {
           centerTitle: true,
         ),
         body: SafeArea(
-          child: Container(
+          child: SizedBox(
               height: double.infinity,
               width: double.infinity,
-              // color: Colors.red,
               child: Column(
-                  // mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     space,
-                    Container(
+                    SizedBox(
                       width: MediaQuery.of(context).size.width * 0.6,
                       height: MediaQuery.of(context).size.height * 0.1,
-                      // color: Colors.amber.shade100,
-                      // decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),
-                      //   boxShadow: [
-                      //   BoxShadow(
-                      //       color: Colors.amber.shade400,
-                      //       spreadRadius: 2,
-                      //       blurRadius: 1)
-                      // ]),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
@@ -70,11 +57,6 @@ class SetDiet extends StatelessWidget {
                     space,
                     const Expanded(
                       child: SizedBox(),
-                      // child: Text(
-                      //   'This will help us know about your goal, and prepare a plan for you accordingly',
-                      //   style: TextStyle(fontSize: 20, fontWeight: FontWeight.w300),
-                      //   textAlign: TextAlign.center,
-                      // ),
                     ),
                     space,
                     space,
@@ -123,23 +105,11 @@ class SetDiet extends StatelessWidget {
                             textAlign: TextAlign.start,
                           )),
                     ),
-                    // const SizedBox(height: 100,),
-                    // Expanded(
-                    //   child: Column(children: [
-                    //      Row(mainAxisAlignment: MainAxisAlignment.center,
-                    //     children: [Text('Your Basal Metabolic Rate: ${bodymass.toString()}',style:const  TextStyle(fontSize: 23),)],),
-
-                    //   const Row(mainAxisAlignment: MainAxisAlignment.center,
-                    //   children: [Text(' Basal Metabolic Rate represents the number of\n calories your body needs to maintain basic\n physiological functions at rest, such as breathing,\n circulating blood, regulating body temperature,\n and supporting organ functions.',
-                    //   style: TextStyle(fontSize: 13,fontWeight: FontWeight.w300),textAlign: TextAlign.center,)],),]),
-                    // ),
-                    Container(
+                    SizedBox(
                       width: 100,
                       height: 80,
-                      child: FloatingActionButton(
-                          // style: const ButtonStyle(
-                          //     backgroundColor:
-                          //         MaterialStatePropertyAll(Colors.amber)),
+                      child: 
+                      FloatingActionButton(
                           onPressed: () {
                             if (dietkey.currentState!.validate()) {
                               int lenght=0;
@@ -176,8 +146,4 @@ class SetDiet extends StatelessWidget {
                   ])),
         ));
   }
-  // Future<void> checklogin()async{
-  //   final sharedprefs=await SharedPreferences.getInstance();
-  //   await sharedprefs.setBool(Logged, true);
-  // }
 }

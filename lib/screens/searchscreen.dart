@@ -1,11 +1,5 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:health_app/widjets/widjets.dart';
-// import 'package:health_app/screens/planscreen.dart';
-
 import '../functions/db_goalfunctions.dart';
-import '../functions/db_mealfunctions.dart';
 import '../models/foodmodel.dart';
 import '../widjets/searchscreenwidget.dart';
 
@@ -74,7 +68,7 @@ class _SearchScreenState extends State<SearchScreen> {
       body: SafeArea(
           child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10),
-        child: Container(
+        child: SizedBox(
           height: double.infinity,
           // color: Colors.red,
           child: Column(
@@ -98,7 +92,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 ),
               ),
               Expanded(
-                child: Container(
+                child: SizedBox(
                   width: double.infinity,
 
                   //valuelistnable
@@ -110,40 +104,6 @@ class _SearchScreenState extends State<SearchScreen> {
                             itemBuilder: (ctx, index) {
                               final data = filteredlist[index];
                               return searchScreen(data, index, widget.mealtime);
-                              //     ListTile(
-                              //   title: Text(
-                              //     data.name,
-                              //     style: const TextStyle(fontSize: 20),
-                              //   ),
-                              //   subtitle: Text(
-                              //     '${data.calorie.toString()} calorie',
-                              //     style: const TextStyle(fontSize: 15),
-                              //   ),
-                              //   //ADD BUTTON
-                              //   trailing: IconButton(
-                              //     icon: Icon(
-                              //       isPressed[index]
-                              //           ? Icons.add
-                              //           : Icons.minimize,
-                              //     ),
-                              //     color: Colors.blue.shade500,
-                              //     onPressed: () {
-                              //       print('this is pressed $isPressed');
-                              //       setState(() {
-                              //         isPressed[index] = !isPressed[index];
-                              //       });
-                              //       // mealadd().value.add(data);
-                              //       // mealadd().notifyListeners();
-                              //       // final name=data.name;
-                              //       // final calorie=data.calorie;
-                              //       total = total + data.calorie;
-                              //       print('this is calorie $total');
-                              //       final meal = FoodModel(
-                              //           name: data.name, calorie: data.calorie);
-                              //       addmealtime(meal, widget.mealtime);
-                              //     },
-                              //   ),
-                              // );
                             },
                             separatorBuilder: (ctx, index) {
                               return const Divider(
@@ -157,7 +117,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       }),
                 ),
               ),
-              Container(
+              SizedBox(
                 width: 80,
                 height: 80,
                 child: ElevatedButton(

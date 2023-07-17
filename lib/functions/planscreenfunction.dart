@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:health_app/functions/db_dailystatusfunction.dart';
 import 'package:health_app/models/dailymodel.dart';
-import 'package:health_app/widjets/widjets.dart';
 import 'package:hive/hive.dart';
 
 import '../models/foodmodel.dart';
-import '../widjets/pllansccreenwidjet.dart';
 import 'db_mealfunctions.dart';
 
 ValueNotifier total = ValueNotifier(0);
@@ -36,7 +34,7 @@ Future<void> sumcalorie(int day) async {
   double dinnertotal = addtotalcalorie(data3);
 
   double daycalorie = breakfasttotal + lunchtotal + dinnertotal;
-  print('this is the calorie $daycalorie');
+
 
   final value = DailyModel(
       day: day,

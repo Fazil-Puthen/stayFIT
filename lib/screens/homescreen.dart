@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:health_app/screens/adminscreen.dart';
 import 'package:health_app/screens/setdietscreen.dart';
-import 'package:health_app/widjets/widjets.dart';
 
-import '../functions/db_goalfunctions.dart';
-// import 'package:health_app/methods/db_methods.dart';
-// import 'package:health_app/screens/goalscreen.dart';
-
+// ignore: must_be_immutable
 class HomeScreen extends StatelessWidget {
   HomeScreen({
     super.key,
@@ -24,27 +20,6 @@ class HomeScreen extends StatelessWidget {
 
   final _formkey = GlobalKey<FormState>();
   final _textkey=GlobalKey<FormState>();
-
-  // Widget textfield(
-  //     String hint, TextEditingController control, TextInputType value,
-  //     String? Function(String?) validator) {
-  //   return TextFormField(
-      
-  //     textAlign: TextAlign.center,
-  //     style: TextStyle(fontSize: 20),
-  //     decoration: InputDecoration(
-  //     //  suffixText: 'KG',
-  //     //  suffixStyle: ,
-  //     // suffix: Center(child: Text('kg'),),
-       
-  //         hintText: hint,
-  //         alignLabelWithHint: true,
-  //         hintStyle: TextStyle(color: Colors.black.withOpacity(.3))),
-  //     controller: control,
-  //     keyboardType: value,
-  //     validator: validator,
-  //   );
-  // }
 
   Widget textfield(
   String hint,
@@ -156,27 +131,12 @@ class HomeScreen extends StatelessWidget {
                 onPressed: () {
                   if(_textkey.currentState!.validate()){
 
-                  // final username = namecontroller.text;
+ 
                   final age = agecontroller.text;
                   final height = heightcontroller.text;
                   final weight = weightcontroller.text;
 
-                  // if (username.isNotEmpty &&
-                  //     age.isNotEmpty &&
-                  //     height.isNotEmpty &&
-                  //     weight.isNotEmpty) {
                     bottomsheet(context, age, height, weight);
-                    // Navigator.of(context).push(MaterialPageRoute(builder:
-                    // (ctx)=>GoalScreen()));
-                  // } else {
-                  //   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                  //     content: Text('All the fields are required'),
-                  //     backgroundColor: Colors.red,
-                  //     behavior: SnackBarBehavior.floating,
-                  //     // padding: EdgeInsets.all(20),
-                  //     margin: EdgeInsets.all(30),
-                  //   ));
-                  // }
                 }},
                 child: const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -231,7 +191,7 @@ class HomeScreen extends StatelessWidget {
                                         if (_formkey.currentState!.validate()) {
                                           Navigator.of(context).push(
                                               MaterialPageRoute(
-                                                  builder: (ctx) => Admin()));
+                                                  builder: (ctx) => const Admin()));
                                           admincontrolller.clear();
                                         }
                                       },
@@ -251,13 +211,6 @@ class HomeScreen extends StatelessWidget {
               ],
             ),
             space,
-            // addTile(
-            //     ' get active for 150 minutes a week – you can break this up into shorter sessions',
-            //     Icons.run_circle),
-            // space,
-            // addTile(
-            //     ' get active for 150 minutes a week – you can break this up into shorter sessions',
-            //     Icons.run_circle)
           ],
         ),
       ),
@@ -268,12 +221,10 @@ class HomeScreen extends StatelessWidget {
     showModalBottomSheet(
         context: ctx,
         builder: (ctx1) {
-          return Container(
+          return SizedBox(
             width: double.infinity,
             height: 400,
             child: Column(
-              // mainAxisAlignment: MainAxisAlignment.center,
-              // crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
                   width: double.infinity,
@@ -377,7 +328,7 @@ class HomeScreen extends StatelessWidget {
     showModalBottomSheet(
         context: ctx,
         builder: (ctx2) {
-          return Container(
+          return SizedBox(
               height: 400,
               width: double.infinity,
               // color: Colors.red,

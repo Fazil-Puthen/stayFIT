@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:health_app/models/foodmodel.dart';
 
-import '../functions/db_goalfunctions.dart';
+
 import '../functions/db_mealfunctions.dart';
 
 

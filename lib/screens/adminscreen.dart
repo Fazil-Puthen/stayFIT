@@ -10,7 +10,7 @@ import 'adminlist.dart';
 
 
 class Admin extends StatefulWidget {
-  Admin({super.key});
+ const  Admin({super.key});
 
   @override
   State<Admin> createState() => _AdminState();
@@ -382,7 +382,7 @@ class _AdminState extends State<Admin> {
                     ),
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (ctx) => AdminList(selectedgoal: 1)));
+                          builder: (ctx) => const AdminList(selectedgoal: 1)));
                     },
                   ),
                 ),
@@ -406,7 +406,7 @@ class _AdminState extends State<Admin> {
                     ),
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (ctx) => AdminList(selectedgoal: 2)));
+                          builder: (ctx) =>const  AdminList(selectedgoal: 2)));
                     },
                   ),
                 )

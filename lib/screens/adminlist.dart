@@ -11,7 +11,7 @@ import '../models/foodmodel.dart';
 
 class AdminList extends StatefulWidget {
   final int selectedgoal;
-  AdminList({Key? key, required this.selectedgoal}) : super(key: key);
+ const  AdminList({Key? key, required this.selectedgoal}) : super(key: key);
 
   @override
   State<AdminList> createState() => _AdminListState();
@@ -133,7 +133,7 @@ class _AdminListState extends State<AdminList> {
                                       children:[ Column(mainAxisAlignment: MainAxisAlignment.center,
                                         children: [
                                           if (selectedImage != null) ...[
-                                            Container(
+                                            SizedBox(
                                               width:MediaQuery.of(context).size.width*0.4,
                                               height: MediaQuery.of(context).size.height*0.2,
                                              child: Image.file(selectedImage!)),

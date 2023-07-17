@@ -112,7 +112,6 @@ class DailyStatus extends StatelessWidget {
                   ),
                 ],
               ),
-              // const SizedBox(height: 50),
               Expanded(
                 flex: 1,
                 child: Row(

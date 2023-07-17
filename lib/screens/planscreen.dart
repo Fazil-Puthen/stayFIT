@@ -7,13 +7,13 @@ import 'package:health_app/functions/shared_pre_function.dart';
 import 'package:health_app/screens/dailystatusscreen.dart';
 import 'package:health_app/screens/homescreen.dart';
 import 'package:health_app/widjets/widjets.dart';
-import 'package:health_app/functions/db_mealfunctions.dart';
 import 'package:health_app/functions/planscreenfunction.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../main.dart';
 import 'adminscreen.dart';
 
+// ignore: must_be_immutable
 class PlanScreen extends StatefulWidget {
   final double totalcalorie;
   late int days;
@@ -40,6 +40,7 @@ class _PlanScreenState extends State<PlanScreen> {
     tologgedin();
   }
 
+@override
   void dispose() {
     // start();
     super.dispose();
@@ -67,7 +68,7 @@ class _PlanScreenState extends State<PlanScreen> {
 
   //timer
   Future<void> start() async {
-    Timer.periodic(const Duration(seconds: 10), (timer) {
+    Timer.periodic(const Duration(days: 1), (timer) {
       int weekcounter = widget.lenght + 1;
       setState(() {
         // lunchnotifier.value;
@@ -147,13 +148,11 @@ class _PlanScreenState extends State<PlanScreen> {
                                   ),
                                   TextButton(
                                       onPressed: () {
-                                        // String name='fazil';
-                                        // final admin=admincontrolller.text;
 
                                         if (_formkey.currentState!.validate()) {
                                           Navigator.of(context).push(
                                               MaterialPageRoute(
-                                                  builder: (ctx) => Admin()));
+                                                  builder: (ctx) =>const  Admin()));
                                           admincontrolller.clear();
                                         }
                                       },
@@ -254,7 +253,7 @@ class _PlanScreenState extends State<PlanScreen> {
                     Card(
                       child: isnull == true
                           ? null
-                          : Container(
+                          : SizedBox(
                               height: 100,
                               child: Column(children: [
                                 Center(
@@ -294,83 +293,32 @@ class _PlanScreenState extends State<PlanScreen> {
                       elevation: 20,
                       child: weekupdate == false
                           ? null
-                          : Column(
-                              children: [
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 15),
-                                  child: Column(
-                                    children: [ Text(
-                                        'Your were initially ${widget.weight} Kg',
-                                        style:  TextStyle(
-                                          fontSize: 15*textScaleFactor,
-                                        ),
-                                      ),
-                                      Text(
-                                        'Your current weight after $week week is $weekupdateweight Kg',
-                                        style:  TextStyle(
-                                          fontSize: 15*textScaleFactor,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                IconButton(
-                                    onPressed: () {
-                                      // Navigator.of(context).push(
-                                      //     MaterialPageRoute(
-                                      //         builder: (ctx) =>
-                                      //             WeeklyStatus()));
-                                      showDialog(
-                                          context: context,
-                                          builder: (BuildContext context) {
-                                            return AlertDialog(
-                                              title: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                      'You were ${widget.weight} Kg')
-                                                ],
-                                              ),
-                                              content: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                      'current weight is $weekupdateweight'),
-                                                ],
-                                              ),
-                                            );
-                                          });
-                                    },
-                                    icon: Container(
-                                      height: 30,
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(5),
-                                          border: Border.all(
-                                              color: Colors.black, width: 1)),
-                                      child: const Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Icon(
-                                            Icons.list,
-                                            size: 30,
-                                            color: Colors.red,
+                          : SizedBox(width: MediaQuery.of(context).size.width*1,
+                          height: MediaQuery.of(context).size.height*0.1,
+                            child: Column(
+                                children: [
+                                  Padding(
+                                    padding:
+                                        const EdgeInsets.symmetric(vertical: 15),
+                                    child: Column(
+                                      children: [ Text(
+                                          'Your were initially ${widget.weight} Kg',
+                                          style:  TextStyle(
+                                            fontSize: 15*textScaleFactor,
                                           ),
-                                          Text(
-                                            'Status',
-                                            style: TextStyle(
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.w300),
-                                          )
-                                        ],
-                                      ),
-                                    ))
-                              ],
-                            ),
+                                        ),
+                                        Text(
+                                          'Your current weight after $week week is $weekupdateweight Kg',
+                                          style:  TextStyle(
+                                            fontSize: 15*textScaleFactor,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                          ),
                     ),
                     box,
 
@@ -440,87 +388,6 @@ class _PlanScreenState extends State<PlanScreen> {
                                       builder: (BuildContext context) {
                                         return AlertDialog(
                                             content: DailyStatus(index: index)
-                                            // Column(
-                                            //   children: [
-                                            //     Expanded(
-                                            //       child: Column(
-                                            //         children: [
-                                            //           Container(
-                                            //             height: 30,
-                                            //             width: double.infinity,
-                                            //             decoration: BoxDecoration(
-                                            //                 borderRadius:
-                                            //                     BorderRadius
-                                            //                         .circular(10),
-                                            //                 color: Colors.amber),
-                                            //             child: Center(
-                                            //               child: Text(
-                                            //                 'Day $index',
-                                            //                 style:
-                                            //                     const TextStyle(
-                                            //                         fontSize: 25),
-                                            //               ),
-                                            //             ),
-                                            //           ),
-                                            //           box,
-                                            //           const Text('Breakfast',
-                                            //               style: TextStyle(
-                                            //                 fontSize: 30,
-                                            //                 color: Color.fromARGB(
-                                            //                     255, 5, 79, 141),
-                                            //               )),
-                                            //           const SizedBox(
-                                            //             height: 5,
-                                            //           ),
-                                            //           track('protein', 300),
-                                            //           box,
-                                            //           track('calorie', 564),
-                                            //           box,
-                                            //           track('fat', 300),
-                                            //           box,
-                                            //           const Text('Lunch',
-                                            //               style: TextStyle(
-                                            //                 fontSize: 30,
-                                            //                 color: Color.fromARGB(
-                                            //                     255, 5, 79, 141),
-                                            //               )),
-                                            //           const SizedBox(
-                                            //             height: 5,
-                                            //           ),
-                                            //           track('protein', 230),
-                                            //           box,
-                                            //           track('calorie', 650),
-                                            //           box,
-                                            //           track('fat', 289),
-                                            //           box,
-                                            //           const Text('Dinner',
-                                            //               style: TextStyle(
-                                            //                 fontSize: 30,
-                                            //                 color: Color.fromARGB(
-                                            //                     255, 5, 79, 141),
-                                            //               )),
-                                            //           const SizedBox(
-                                            //             height: 5,
-                                            //           ),
-                                            //           track('protein', 230),
-                                            //           box,
-                                            //           track('calorie', 650),
-                                            //           box,
-                                            //           track('fat', 289),
-                                            //         ],
-                                            //       ),
-                                            //     ),
-                                            //     TextButton(
-                                            //         onPressed: () {
-                                            //           Navigator.of(context).pop();
-                                            //         },
-                                            //         child: const Text(
-                                            //           'Close',
-                                            //           style:
-                                            //               TextStyle(fontSize: 25),
-                                            //         ))
-                                            //   ],
-                                            // ),
                                             );
                                       });
                                 },
@@ -533,11 +400,11 @@ class _PlanScreenState extends State<PlanScreen> {
                                         borderRadius: BorderRadius.circular(5),
                                         color: Colors.amber),
                                     // color: Colors.amber,
-                                    margin: EdgeInsets.all(5),
+                                    margin: const EdgeInsets.all(5),
                                     child: Center(
                                       child: Text(
                                         'Day ${index + 1}',
-                                        style: TextStyle(fontSize: 20),
+                                        style: const TextStyle(fontSize: 20),
                                       ),
                                     ),
                                   ),
@@ -563,27 +430,6 @@ class _PlanScreenState extends State<PlanScreen> {
 
                     box,
 
-                    // const Text(
-                    //   ' Progress',
-                    //   style:
-                    //       TextStyle(fontSize: 25, fontWeight: FontWeight.w300),
-                    // ),
-                    // Container(
-                    //   width: double.infinity,
-                    //   height: 100,
-                    //   decoration: BoxDecoration(
-                    //       borderRadius: BorderRadius.circular(10),
-                    //       color: Colors.amber.shade300),
-                    //   child: Center(
-                    //       child: Column(
-                    //     children: [
-                    //       Text(
-                    //         'your current weight -$weight ',
-                    //         style: const TextStyle(fontSize: 20),
-                    //       ),
-                    //     ],
-                    //   )),
-                    // ),
                   ],
                 ),
               )),
