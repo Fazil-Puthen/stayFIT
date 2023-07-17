@@ -24,6 +24,13 @@ Future<void> addtodailylist(DailyModel data) async {
   dailynotifier.notifyListeners();
 }
 
+Future<void> getdailystatusfeed()async{
+  final dailydata=await Hive.openBox<DailyModel>('dailystatus');
+  dailynotifier.value.clear();
+  dailynotifier.value.addAll(dailydata.values);
+  dailynotifier.notifyListeners();
+}
+
 Future<void> cleardailystatus() async {
   final dailydata = await Hive.openBox<DailyModel>('dailystatus');
   dailynotifier.value.clear();

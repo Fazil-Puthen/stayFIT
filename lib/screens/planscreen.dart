@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:health_app/functions/db_dailystatusfunction.dart';
 import 'package:health_app/functions/db_goalfunctions.dart';
+import 'package:health_app/functions/shared_pre_function.dart';
 import 'package:health_app/screens/dailystatusscreen.dart';
 import 'package:health_app/screens/homescreen.dart';
 import 'package:health_app/widjets/widjets.dart';
@@ -10,11 +11,13 @@ import 'package:health_app/functions/db_mealfunctions.dart';
 import 'package:health_app/functions/planscreenfunction.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../main.dart';
 import 'adminscreen.dart';
 
 class PlanScreen extends StatefulWidget {
   final double totalcalorie;
   late int days;
+  late int lenght;
   final int selectedgoal;
   final double weight;
   PlanScreen(
@@ -22,7 +25,8 @@ class PlanScreen extends StatefulWidget {
       required this.totalcalorie,
       required this.days,
       required this.selectedgoal,
-      required this.weight});
+      required this.weight,
+      required this.lenght});
 
   @override
   State<PlanScreen> createState() => _PlanScreenState();
@@ -32,8 +36,6 @@ class _PlanScreenState extends State<PlanScreen> {
   @override
   void initState() {
     super.initState();
-    
-    // cleardailystatus();
     start();
     tologgedin();
   }
@@ -45,11 +47,12 @@ class _PlanScreenState extends State<PlanScreen> {
 
   Future<void>tologgedin()async{
     final sharedprefs=await SharedPreferences.getInstance();
+     await sharedprefs.setBool(Logged, true);
     await sharedprefs.setDouble('totalcalorie', widget.totalcalorie);
     await sharedprefs.setInt('days', widget.days);
     await sharedprefs.setInt('selectedgoal', widget.selectedgoal);
     await sharedprefs.setDouble('weight', widget.weight);
-    await sharedprefs.setInt('length', lenght);
+    await sharedprefs.setInt('length', widget.lenght);
   }
   
  
@@ -63,20 +66,19 @@ class _PlanScreenState extends State<PlanScreen> {
   final admincontrolller=TextEditingController();
 
   //timer
-  int lenght = 0;
   Future<void> start() async {
     Timer.periodic(const Duration(seconds: 10), (timer) {
-      int weekcounter = lenght + 1;
+      int weekcounter = widget.lenght + 1;
       setState(() {
         // lunchnotifier.value;
         if (widget.days > 0) {
           widget.days--;
-          sumcalorie(lenght);
+          sumcalorie(widget.lenght);
           timeclear();
           if (weekcounter % 7 == 0) {
             isnull = !isnull;
           }
-          lenght++;
+          widget.lenght++;
          tologgedin();
         } else {
           timer.cancel();
@@ -99,7 +101,6 @@ class _PlanScreenState extends State<PlanScreen> {
      final screenSize = MediaQuery.of(context).size;
   final textScaleFactor = screenSize.width > 600 ? 1.5 : 1.0;
     final weight = widget.weight;
-    getmeallist();
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -110,7 +111,7 @@ class _PlanScreenState extends State<PlanScreen> {
           Padding(
             padding: const EdgeInsets.all(5.0),
 
-            //Plan exit button
+            //Admin Panel
             child: Row(
               children: [
                 IconButton (  onPressed: (){
@@ -136,7 +137,7 @@ class _PlanScreenState extends State<PlanScreen> {
                                           )),
                                       obscureText: true,
                                       validator: (value) {
-                                        if (value == null || value != '1') {
+                                        if (value == null || value != 'pass') {
                                           return 'please enter a valid password';
                                         }
                                         return null;
@@ -165,6 +166,7 @@ class _PlanScreenState extends State<PlanScreen> {
                         });
               },
                icon: const Icon(Icons.admin_panel_settings)),
+               //Exit Plan
                 IconButton(
                     onPressed: () {
                       showDialog(
@@ -188,6 +190,8 @@ class _PlanScreenState extends State<PlanScreen> {
                                         onPressed: () {
                                           clearHiveData();
                                           cleardailystatus();
+                                          tologgedout();
+
                                           Navigator.of(context).pushAndRemoveUntil(
                                               MaterialPageRoute(
                                                   builder: (ctx) => HomeScreen()),
@@ -426,7 +430,7 @@ class _PlanScreenState extends State<PlanScreen> {
                       child: Center(
                         child: ListView.builder(
                             scrollDirection: Axis.horizontal,
-                            itemCount: lenght,
+                            itemCount:widget.lenght,
                             itemBuilder: ((BuildContext context, index) {
                               return GestureDetector(
                                 onTap: () {

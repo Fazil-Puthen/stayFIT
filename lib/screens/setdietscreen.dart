@@ -142,6 +142,7 @@ class SetDiet extends StatelessWidget {
                           //         MaterialStatePropertyAll(Colors.amber)),
                           onPressed: () {
                             if (dietkey.currentState!.validate()) {
+                              int lenght=0;
                               final tarweight = targetweight.text;
                               double tweight = double.parse(tarweight);
                               double days = (tweight / .5) * 7;
@@ -153,14 +154,15 @@ class SetDiet extends StatelessWidget {
 
                               FocusScope.of(context).unfocus();
                               Future.delayed(const Duration(seconds: 1), () {
-                                checklogin();
+                                // checklogin();
                                 Navigator.of(context).pushAndRemoveUntil(
                                     MaterialPageRoute(
                                         builder: (ctx1) => PlanScreen(
                                             totalcalorie: totalcalorie,
                                             days: days.toInt(),
                                             selectedgoal: selectedgoal,
-                                            weight: weight)),
+                                            weight: weight,
+                                            lenght: lenght,)),
                                     (route) => false);
                               });
                             }
@@ -174,8 +176,8 @@ class SetDiet extends StatelessWidget {
                   ])),
         ));
   }
-  Future<void> checklogin()async{
-    final sharedprefs=await SharedPreferences.getInstance();
-    await sharedprefs.setBool(Logged, true);
-  }
+  // Future<void> checklogin()async{
+  //   final sharedprefs=await SharedPreferences.getInstance();
+  //   await sharedprefs.setBool(Logged, true);
+  // }
 }

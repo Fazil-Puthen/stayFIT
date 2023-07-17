@@ -77,7 +77,6 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    getfoodlist();
 
     return Scaffold(
         body: SafeArea(
