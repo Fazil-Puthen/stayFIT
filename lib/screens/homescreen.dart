@@ -429,7 +429,7 @@ class HomeScreen extends StatelessWidget {
                               5;
                           Navigator.of(ctx).push(MaterialPageRoute(
                               builder: (ctx1) => SetDiet(
-                                    weight: weight,
+                                    weight: double.parse(weight),
                                     bodymass: bmr,
                                     selectedgoal: selectedgoal,
                                   )));
@@ -471,7 +471,7 @@ class HomeScreen extends StatelessWidget {
                               161;
                           Navigator.of(ctx).push(MaterialPageRoute(
                               builder: (ctx3) => SetDiet(
-                                    weight: weight,
+                                    weight: double.parse(weight),
                                     bodymass: bmr,
                                     selectedgoal: selectedgoal,
                                   )));

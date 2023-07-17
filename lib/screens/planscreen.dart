@@ -8,14 +8,15 @@ import 'package:health_app/screens/homescreen.dart';
 import 'package:health_app/widjets/widjets.dart';
 import 'package:health_app/functions/db_mealfunctions.dart';
 import 'package:health_app/functions/planscreenfunction.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'adminscreen.dart';
 
 class PlanScreen extends StatefulWidget {
-  final totalcalorie;
+  final double totalcalorie;
   late int days;
   final int selectedgoal;
-  dynamic weight;
+  final double weight;
   PlanScreen(
       {super.key,
       required this.totalcalorie,
@@ -31,13 +32,24 @@ class _PlanScreenState extends State<PlanScreen> {
   @override
   void initState() {
     super.initState();
-    cleardailystatus();
+    
+    // cleardailystatus();
     start();
+    tologgedin();
   }
 
   void dispose() {
-    start();
+    // start();
     super.dispose();
+  }
+
+  Future<void>tologgedin()async{
+    final sharedprefs=await SharedPreferences.getInstance();
+    await sharedprefs.setDouble('totalcalorie', widget.totalcalorie);
+    await sharedprefs.setInt('days', widget.days);
+    await sharedprefs.setInt('selectedgoal', widget.selectedgoal);
+    await sharedprefs.setDouble('weight', widget.weight);
+    await sharedprefs.setInt('length', lenght);
   }
   
  
@@ -60,11 +72,12 @@ class _PlanScreenState extends State<PlanScreen> {
         if (widget.days > 0) {
           widget.days--;
           sumcalorie(lenght);
-          timeclear(context);
+          timeclear();
           if (weekcounter % 7 == 0) {
             isnull = !isnull;
           }
           lenght++;
+         tologgedin();
         } else {
           timer.cancel();
         }
@@ -85,7 +98,7 @@ class _PlanScreenState extends State<PlanScreen> {
   Widget build(BuildContext context) {
      final screenSize = MediaQuery.of(context).size;
   final textScaleFactor = screenSize.width > 600 ? 1.5 : 1.0;
-    final weight = double.parse(widget.weight);
+    final weight = widget.weight;
     getmeallist();
     return Scaffold(
       backgroundColor: Colors.white,
@@ -174,6 +187,7 @@ class _PlanScreenState extends State<PlanScreen> {
                                     TextButton(
                                         onPressed: () {
                                           clearHiveData();
+                                          cleardailystatus();
                                           Navigator.of(context).pushAndRemoveUntil(
                                               MaterialPageRoute(
                                                   builder: (ctx) => HomeScreen()),

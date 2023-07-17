@@ -4,7 +4,7 @@ import 'package:health_app/models/foodmodel.dart';
 import 'package:health_app/screens/homescreen.dart';
 import 'package:health_app/screens/splash.dart';
 import 'package:hive_flutter/adapters.dart';
-
+const Logged='userloggedin';
 void main() {
   // WidgetsFlutterBinding.ensureInitialized();
   // await Hive.initFlutter();

@@ -132,7 +132,7 @@ class DailyStatus extends StatelessWidget {
               ),
               TextButton(
                   onPressed: () {
-                    Navigator.pop(context);
+                    Navigator.pop(context1);
                   },
                   child: const Text(
                     'Close',

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:health_app/main.dart';
 import 'package:health_app/screens/homescreen.dart';
+import 'package:health_app/screens/planscreen.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/dailymodel.dart';
 import '../models/foodmodel.dart';
@@ -35,7 +38,7 @@ class _SplashScreenState extends State<SplashScreen> {
     );
   }
   Future<void> gotoLogin() async {
-    Future.delayed(const Duration(seconds: 5));
+   await Future.delayed(const Duration(seconds: 2));
       WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   if (!Hive.isAdapterRegistered(FoodModelAdapter().typeId)) {
@@ -44,8 +47,18 @@ class _SplashScreenState extends State<SplashScreen> {
   if (!Hive.isAdapterRegistered(DailyModelAdapter().typeId)) {
     Hive.registerAdapter(DailyModelAdapter());
   }
+  final sharedprefs=await SharedPreferences.getInstance();
+  final userloggedin=sharedprefs.getBool(Logged);
+  if(userloggedin==null || userloggedin==false){
     Navigator.of(context)
-        .pushReplacement(MaterialPageRoute(builder: (ctx) => HomeScreen()));
+        .pushReplacement(MaterialPageRoute(builder: (ctx) => HomeScreen()));}
+        else{
+  final totalcalorie=sharedprefs.getDouble('totalcalorie');
+  final days=sharedprefs.getInt('days');
+  final selectedgoal=sharedprefs.getInt('selectedgoal');
+  final weight=sharedprefs.getDouble('weight');
+          Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (ctx2)=>PlanScreen(totalcalorie: totalcalorie!, days: days!, selectedgoal: selectedgoal!, weight: weight!)));
+        }
   }
 }
 

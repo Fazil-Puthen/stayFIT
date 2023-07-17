@@ -1,4 +1,5 @@
 import 'package:health_app/functions/db_mealfunctions.dart';
+import 'package:health_app/models/dailymodel.dart';
 
 import '../models/foodmodel.dart';
 import 'package:flutter/material.dart';
@@ -67,7 +68,6 @@ Future<void> deletefood(int id, int selectedgoal) async {
 
 Future<void> clearHiveData() async {
   // Open the Hive box
-
   final box3 = await Hive.openBox<FoodModel>('Breakfast');
   final box4 = await Hive.openBox<FoodModel>('Lunch');
   final box5 = await Hive.openBox<FoodModel>('Dinner');
